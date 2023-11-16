@@ -15,8 +15,6 @@ class MainActivity : ComponentActivity() {
         setContent {
 
                       Happenings_Around()
-
-
         }
     }
 }

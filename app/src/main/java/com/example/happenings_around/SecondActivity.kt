@@ -46,7 +46,7 @@ fun Happenings_Around_Start(navController: NavController) {
             painter = painterResource(R.drawable.untitled),
             contentDescription = result.toString(),
             modifier = Modifier
-                .size(1000.dp)
+                .size(500.dp)
                 .clip(CircleShape)
         )
         Spacer(modifier = Modifier.height(16.dp))
