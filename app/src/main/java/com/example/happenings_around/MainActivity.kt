@@ -9,7 +9,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.happenings_around.ui.theme.Routes
 
-class MainActivity : ComponentActivity() {
+
+class MainActivity : ComponentActivity()
+{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -32,6 +34,12 @@ val navController = rememberNavController()
         }
         composable(Routes.HAPPENINGS_AROUND_START) {
             Happenings_Around_Start(navController)
+        }
+        composable(Routes.FINAL_DISPLAY){
+                 displayingNews()
+        }
+        composable(Routes.CREDENTIALS){
+                Credentials1(navController)
         }
 
     }}

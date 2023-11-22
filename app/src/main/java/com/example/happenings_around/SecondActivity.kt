@@ -1,11 +1,10 @@
 package com.example.happenings_around
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -32,41 +31,35 @@ import com.example.happenings_around.ui.theme.Routes
 @Composable
 fun Happenings_Around_Start(navController: NavController) {
     var result by remember { mutableStateOf(1) }
-    Surface(modifier=Modifier.fillMaxSize()){
-    Column(
+    Surface(modifier = Modifier.fillMaxSize()) {
+        Row(
 
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Rana Dheeraj",
-            color = MaterialTheme.colorScheme.secondary,
-            style = MaterialTheme.typography.titleSmall
-        )
-        Image(
-            painter = painterResource(R.drawable.untitled),
-            contentDescription = result.toString(),
-            modifier = Modifier
-                .size(500.dp)
-                .clip(CircleShape)
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-         Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
-          Text(stringResource(R.string.start))
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Rana Dheeraj",
+                color = MaterialTheme.colorScheme.secondary,
+                style = MaterialTheme.typography.titleSmall
+            )
+            Image(
+                painter = painterResource(R.drawable.untitled),
+                contentDescription = result.toString(),
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(CircleShape)
+
+
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+            Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
+                Text(stringResource(R.string.start))
+            }
         }
     }
-    }
-    Surface(shape = MaterialTheme.shapes.medium, shadowElevation = 1.dp) {
-        Text(
-            text = "Something tends to change in short time",
-            modifier = Modifier
-                .padding(all = 4.dp)
-                .size(10.dp),
-            style = MaterialTheme.typography.bodyMedium
-
-
-        )
-    }
 }
+
+
 @Preview
 @Composable
 fun Happenings_Around_StartPreview(){
