@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.happenings_around.ui.theme.Routes
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,12 +37,12 @@ fun Credentials1(navController: NavController){
     val userCredentialViewModel: UserCredentialsViewModel = viewModel()
 Column(
 modifier = Modifier
-.fillMaxWidth()
-.padding(10.dp)
+    .fillMaxWidth()
+    .padding(10.dp)
 ) {
     OutlinedTextField(
         value = userCredentialViewModel.username,
-        onValueChange = { userCredentialViewModel.username = it },
+        onValueChange = { it.also { userCredentialViewModel.username = it } },
         label = { Text(text = LocalContext.current.getString(R.string.username_textfield)) }
     )
     PasswordField(
@@ -91,4 +93,9 @@ modifier = Modifier
         },
         modifier = modifier
     )
+}
+@Preview
+@Composable
+fun PasswordFieldPreview(){
+    Credentials1(rememberNavController())
 }

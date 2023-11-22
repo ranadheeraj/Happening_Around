@@ -52,7 +52,7 @@ fun Happenings_Around_Start(navController: NavController) {
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
+            Button(onClick = { navController.navigate(Routes.CREDENTIALS) }) {
                 Text(stringResource(R.string.start))
             }
         }

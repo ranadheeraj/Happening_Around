@@ -4,7 +4,7 @@
     <string name="press_to_fetch">Fetch the list!</string>
     <string name="username_textfield">Uni User ID</string>
     <string name="password_textfield">Password</string>
-    <string name="no_horse_data">No data yet!</string>
+    <string name="next">next</string>
     <string name="show_password">Show Password</string>
     <string name="hide_password">Hide Password</string>
 </resources>
