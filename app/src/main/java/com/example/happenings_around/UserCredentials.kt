@@ -28,6 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.happenings_around.ui.theme.Routes
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModel
 import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,4 +99,19 @@ modifier = Modifier
 @Composable
 fun PasswordFieldPreview(){
     Credentials1(rememberNavController())
+}
+
+class UserCredentialsViewModel : ViewModel() {
+    var username by mutableStateOf("")
+    var password by mutableStateOf("")
+
+    fun areCredentialsPresent(): Boolean {
+        return username.isNotEmpty() &&password.isNotEmpty()
+    }
+
+    fun reset() {
+        username = ""
+        password=""
+    }
+
 }

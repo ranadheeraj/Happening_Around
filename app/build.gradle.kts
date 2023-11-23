@@ -78,7 +78,5 @@ dependencies {
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.11.0"))
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
-  //implementation("com.squareup.moshi:moshi:$moshi_version")
-    //implementation("com.sqareup.moshi:moshi-kotlin:$moshi_version")
-   // kapt("com.sqareup.moshi:moshi-kotlin-codegen:$moshi_version")
+   implementation ("com.google.code.gson:gson:2.10.1")
 }

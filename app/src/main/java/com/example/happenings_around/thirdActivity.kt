@@ -5,7 +5,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,7 +32,8 @@ import com.example.happenings_around.ui.theme.UserDatauiEvent
 
 class ThirdActivity{
     @Composable
-    fun ImageCard(image:Int,categorySelected: (categoryName:String)->Unit,selected:Boolean){
+    fun ImageCard(image:Int,categorySelected: (categoryName:Int)->Unit,selected:Boolean){
+        var res=1
         Card(
             modifier= Modifier
                 .padding(24.dp)
@@ -45,16 +45,22 @@ class ThirdActivity{
                 Image(modifier= Modifier
                     .padding(10.dp)
                     .clickable {
-                        val categoryName = if (image == R.drawable.war) "dog" else "dog"
+                        var categoryName = when (res) {
+                        1 -> R.drawable.war
+                        2 -> R.drawable.fashion
+                        3 -> R.drawable.politics
+                        4 -> R.drawable.sports
+                        5 -> R.drawable.business
+                        6 -> R.drawable.entertainments
+                        7 -> R.drawable.health
+                        8 -> R.drawable.education
+                        else -> R.drawable.ic_launcher_foreground}
                         categorySelected(categoryName)
 
 
                     },
                     painter=painterResource(id=image),
                     contentDescription="Category Image")}
-
-
-
         }
     }
 }
