@@ -36,7 +36,7 @@ val navController = rememberNavController()
             Happenings_Around_Start(navController)
         }
         composable(Routes.FINAL_DISPLAY){
-                 displayingNews()
+                 ComposeApp()
         }
         composable(Routes.CREDENTIALS){
                 Credentials1(navController)

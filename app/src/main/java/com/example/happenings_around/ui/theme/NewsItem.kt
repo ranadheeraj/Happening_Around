@@ -1,5 +1,4 @@
 package com.example.happenings_around.ui.theme
-
 data class NewsItem(
     val title: String?,
     val link: String?,
@@ -10,6 +9,3 @@ data class NewsItem(
     val sourceFaviconUrl: String?
 )
 
-data class NewsResponse(
-    val newsItems: List<NewsItem>
-)

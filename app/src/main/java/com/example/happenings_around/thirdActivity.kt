@@ -5,7 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
@@ -36,8 +36,8 @@ class ThirdActivity{
         var res=1
         Card(
             modifier= Modifier
-                .padding(24.dp)
-                .size(130.dp),
+                .padding(10.dp)
+                .size(100.dp),
             elevation = CardDefaults.cardElevation(10.dp)
 
         ){
@@ -71,13 +71,13 @@ fun UserInputScreen(navController: NavController) {
     var res by remember  {mutableStateOf(1)}
 
 
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(modifier = Modifier.fillMaxWidth()) {
         Column(
 
-            horizontalAlignment = Alignment.CenterHorizontally
+           horizontalAlignment =Alignment.CenterHorizontally
         ) {
 
-            Button(onClick = { navController.navigate(Routes.CREDENTIALS) }) {
+            Button(onClick = { navController.navigate(Routes.FINAL_DISPLAY) }) {
                 Text(stringResource(R.string.next))
             }
 
