@@ -6,6 +6,7 @@ import com.example.happenings_around.ui.theme.UserDatauiEvent
 import com.example.happenings_around.ui.theme.UserInputScreenState
 
 class UserInputViewModel: ViewModel() {
+
     var uiState =mutableStateOf(UserInputScreenState())
     fun onEvent(event: UserDatauiEvent)
 {

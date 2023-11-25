@@ -101,17 +101,3 @@ fun PasswordFieldPreview(){
     Credentials1(rememberNavController())
 }
 
-class UserCredentialsViewModel : ViewModel() {
-    var username by mutableStateOf("")
-    var password by mutableStateOf("")
-
-    fun areCredentialsPresent(): Boolean {
-        return username.isNotEmpty() &&password.isNotEmpty()
-    }
-
-    fun reset() {
-        username = ""
-        password=""
-    }
-
-}
