@@ -1,6 +1,7 @@
 package com.example.happenings_around
 
 import android.util.Log
+import android.widget.ImageView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -30,7 +31,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import coil.compose.rememberImagePainter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.happenings_around.ui.theme.NewsItem
 import kotlinx.coroutines.launch
 
@@ -62,7 +66,7 @@ fun ComposeApp() {
                     onClick =  {
                         // Trigger the asynchronous task
                         coroutineScope.launch {
-                            //newsItems = RapidApiRepository
+                           // newsItems = RapidApiRepository().displayingNews()
                             isLoading = false
                         }
 
@@ -131,7 +135,19 @@ fun NewsItemCard(newsItem: NewsItem) {
     }
 }
 @OptIn(ExperimentalComposeUiApi::class)
-
+//@BindingAdapter("imageUrl")
+fun bindImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        Glide.with(imgView)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                .placeholder(R.drawable.figure_1)
+                .error(R.drawable.figure_3))
+            .into(imgView)
+    }
+}
 
 @Preview(showBackground = true)
 @Composable

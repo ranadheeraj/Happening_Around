@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -39,7 +40,7 @@ val navController = rememberNavController()
                  ComposeApp()
         }
         composable(Routes.CREDENTIALS){
-                Credentials1(navController)
+                Credentials1()
         }
 
     }}

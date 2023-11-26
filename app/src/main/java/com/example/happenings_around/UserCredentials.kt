@@ -33,7 +33,7 @@ import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Credentials1(navController: NavController){
+fun Credentials1(){
 
     val userCredentialViewModel: UserCredentialsViewModel = viewModel()
 Column(
@@ -52,9 +52,9 @@ modifier = Modifier
             userCredentialViewModel.password = it
         }
     )
-    Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
-        Text(stringResource(R.string.start))
-    }
+   // Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
+     //   Text(stringResource(R.string.start))
+    //}
 }}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -98,6 +98,6 @@ modifier = Modifier
 @Preview
 @Composable
 fun PasswordFieldPreview(){
-    Credentials1(rememberNavController())
+    Credentials1()
 }
 
