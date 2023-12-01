@@ -17,7 +17,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +25,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -36,7 +34,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.happenings_around.ui.theme.Routes
 import com.example.happenings_around.ui.theme.UserDatauiEvent
-import com.example.happenings_around.ui.theme.UserInputScreenState
 
 class ThirdActivity{
     @OptIn(ExperimentalMaterial3Api::class)
@@ -48,6 +45,7 @@ class ThirdActivity{
             shape= RoundedCornerShape(8.dp),
             modifier= Modifier
                 .padding(10.dp)
+                //.clickable(onClick=)
                 .size(100.dp),
             elevation = CardDefaults.cardElevation(10.dp)
 
@@ -100,7 +98,7 @@ fun UserInputScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
-                value = "Enter any category of intrested",
+                value = " ",
                 onValueChange = {  userInputViewModel.onEvent(UserDatauiEvent.UsernameEntered(it)) } ,
                 label = { }
             )
@@ -109,6 +107,7 @@ fun UserInputScreen(navController: NavController) {
             Button(onClick = { navController.navigate(Routes.FINAL_DISPLAY) }) {
                 Text(stringResource(R.string.next))
             }
+
             if (!userInputViewModel.uiState.value.nameEntered.isNullOrEmpty()
                 &&
                 !userInputViewModel.uiState.value.categorySelected.equals(9)

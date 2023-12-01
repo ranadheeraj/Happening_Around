@@ -27,13 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.happenings_around.ui.theme.Routes
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.ViewModel
-import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Credentials1(){
+fun Credentials1(navController: NavController){
 
     val userCredentialViewModel: UserCredentialsViewModel = viewModel()
 Column(
@@ -52,9 +49,9 @@ modifier = Modifier
             userCredentialViewModel.password = it
         }
     )
-   // Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
-     //   Text(stringResource(R.string.start))
-    //}
+    Button(onClick = { navController.navigate(Routes.USER_INPUT_SCREEN) }) {
+       Text(stringResource(R.string.start))
+    }
 }}
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -95,9 +92,5 @@ modifier = Modifier
         modifier = modifier
     )
 }
-@Preview
-@Composable
-fun PasswordFieldPreview(){
-    Credentials1()
-}
+
 

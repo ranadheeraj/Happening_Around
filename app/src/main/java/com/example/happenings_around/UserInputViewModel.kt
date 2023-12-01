@@ -1,6 +1,5 @@
 package com.example.happenings_around
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.example.happenings_around.ui.theme.UserDatauiEvent
@@ -9,7 +8,7 @@ import com.example.happenings_around.ui.theme.UserInputScreenState
 class UserInputViewModel: ViewModel() {
 
     var uiState =mutableStateOf(UserInputScreenState())
-    var horse =mutableStateListOf<String>()
+
     fun onEvent(event: UserDatauiEvent)
 {
     when (event){
@@ -25,13 +24,7 @@ class UserInputViewModel: ViewModel() {
         }
     }
 }
-    fun fetch(
-        username:String,
-        password:String,
-        onSuccess:(List<String>)->Unit ={},
-        onFailure:(String)->Unit={}){
-          RapidApiRepository(username,password)
-        }
+
 
 
 }

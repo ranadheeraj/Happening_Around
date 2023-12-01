@@ -84,5 +84,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation ("com.squareup.moshi:moshi:1.14.0")
     implementation ("com.squareup.moshi:moshi-kotlin:1.14.0")
+    //implementation("com.google.accompanist:accompanist-glide:0.33.2")
    //kapt ("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
+  //  implementation ("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation("io.coil-kt:coil:2.5.0")
+
 }

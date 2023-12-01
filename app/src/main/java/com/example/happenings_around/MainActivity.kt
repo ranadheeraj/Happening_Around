@@ -37,10 +37,10 @@ val navController = rememberNavController()
             Happenings_Around_Start(navController)
         }
         composable(Routes.FINAL_DISPLAY){
-                 ComposeApp()
+                 NewsApp()
         }
         composable(Routes.CREDENTIALS){
-                Credentials1()
+                Credentials1(navController)
         }
 
     }}
