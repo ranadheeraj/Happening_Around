@@ -1,6 +1,9 @@
 package com.example.happenings_around
 
+import androidx.compose.animation.VectorConverter
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,29 +36,23 @@ import com.example.happenings_around.ui.theme.Routes
 fun Happenings_Around_Start(navController: NavController) {
     var result by remember { mutableStateOf(1) }
     Surface(modifier = Modifier.fillMaxSize()) {
-        Row(
+        Column(
 
-            verticalAlignment = Alignment.CenterVertically
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Rana Dheeraj",
-                color = MaterialTheme.colorScheme.secondary,
-                style = MaterialTheme.typography.titleSmall
-            )
+            Spacer(modifier = Modifier.height(200.dp))
             Image(
                 painter = painterResource(R.drawable.untitled),
                 contentDescription = result.toString(),
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(350.dp)
                     .clip(CircleShape)
+                    .clickable(onClick={navController.navigate(Routes.CREDENTIALS)})
 
 
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
-            Button(onClick = { navController.navigate(Routes.CREDENTIALS) }) {
-                Text(stringResource(R.string.start))
-            }
+
         }
     }
 }

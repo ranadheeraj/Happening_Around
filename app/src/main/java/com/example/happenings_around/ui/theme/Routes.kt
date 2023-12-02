@@ -5,4 +5,6 @@ object Routes {
     const val HAPPENINGS_AROUND_START="HAPPENINGS_AROUND_START"
     const val FINAL_DISPLAY ="FINAL_DISPLAY"
     const val CREDENTIALS ="CREDENTIALS"
+    const val NAME ="NAME"
+    const val CATEGORY_SELECTED ="CATEGORY_SELECTED"
 }

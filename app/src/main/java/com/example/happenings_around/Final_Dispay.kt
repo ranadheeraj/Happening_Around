@@ -33,6 +33,7 @@ import java.util.Locale
 @Composable
 fun NewsItemCard(newsItem: NewsItem) {
     //val painter = rememberImagePainter(data = newsItem.image)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()

@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -19,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,6 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -35,7 +40,8 @@ import androidx.navigation.NavController
 import com.example.happenings_around.ui.theme.Routes
 import com.example.happenings_around.ui.theme.UserDatauiEvent
 
-class ThirdActivity{
+
+
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun ImageCard(image:Int,categorySelected: (categoryName:Int)->Unit,selected:Boolean){
@@ -45,7 +51,7 @@ class ThirdActivity{
             shape= RoundedCornerShape(8.dp),
             modifier= Modifier
                 .padding(10.dp)
-                //.clickable(onClick=)
+
                 .size(100.dp),
             elevation = CardDefaults.cardElevation(10.dp)
 
@@ -83,47 +89,36 @@ class ThirdActivity{
                     contentDescription="Category Image")}
         }
     }
-}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserInputScreen(navController: NavController) {
+fun UserInputScreen(userInputViewModel: UserInputViewModel,
+                    showWelcomeScreen:(valuesPair:Pair<String,Int>)-> Unit) {
 
-    val userInputViewModel: UserInputViewModel = viewModel()
+    //val userInputViewModel: UserInputViewModel = viewModel()
     var res by remember { mutableStateOf(1) }
+
 
 
     Surface(modifier = Modifier.fillMaxWidth()) {
         Column(
 
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            OutlinedTextField(
-                value = " ",
-                onValueChange = {  userInputViewModel.onEvent(UserDatauiEvent.UsernameEntered(it)) } ,
-                label = { }
-            )
-
-
-            Button(onClick = { navController.navigate(Routes.FINAL_DISPLAY) }) {
-                Text(stringResource(R.string.next))
-            }
-
-            if (!userInputViewModel.uiState.value.nameEntered.isNullOrEmpty()
-                &&
-                !userInputViewModel.uiState.value.categorySelected.equals(9)
-            )
-                Button(modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        println("${userInputViewModel.uiState.value.nameEntered} and${userInputViewModel.uiState.value.categorySelected}")
-                    }
-
-                ) {
-                    Text(
-                        text = "gotoDetails", fontSize = 18.sp,
-                        color = Color.White
+            horizontalAlignment = Alignment.Start
+        )
+        {
+                TextComponent(onTextChanged = {
+                    userInputViewModel.onEvent(
+                        UserDatauiEvent.nameEntered(it)
                     )
-                }
+                })
+            }
+        }
 
+
+            //Button(onClick = { navController.navigate(Routes.FINAL_DISPLAY) }) {
+             //     Text(stringResource(R.string.next))
+              //   }
+        LazyColumn(){
 
             for (res in 1..8) {
                 val image = when (res) {
@@ -137,7 +132,7 @@ fun UserInputScreen(navController: NavController) {
                     8 -> R.drawable.education
                     else -> R.drawable.ic_launcher_foreground
                 }
-                ThirdActivity().ImageCard(
+               item{ ImageCard(
                     image,
                     categorySelected = {
                         userInputViewModel.onEvent(
@@ -147,13 +142,72 @@ fun UserInputScreen(navController: NavController) {
                     }, selected = userInputViewModel.uiState.value.categorySelected == res
                 )
 
-            }
+
+            }}}
+            if (!userInputViewModel.uiState.value.nameEntered.isNullOrEmpty()
+                &&
+                !userInputViewModel.uiState.value.categorySelected.equals(0)
+            ){ ButtonComponent(
+                goToDetailsScreen = {
+                          println("=========ComingHere")
+                          println("============${userInputViewModel.uiState.value.nameEntered}")
+                    showWelcomeScreen(
+                        Pair(
+                            userInputViewModel.uiState.value.nameEntered,
+                            userInputViewModel.uiState.value.categorySelected  ))
+                }
+            )}
+
 
         }
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextComponent(
+    onTextChanged:(name:String) ->Unit
+) {
+    val localFocus= LocalFocusManager.current
+    val userInputViewModel: UserInputViewModel = viewModel()
+    var currentValue by remember{
+        mutableStateOf("")
     }
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = currentValue,
+        onValueChange = {
+            currentValue =it
+            onTextChanged(it) },
+        placeholder = {
+            Text(text = "Enter news type", fontSize = 18.sp)
+        },
+        textStyle = TextStyle.Default.copy(fontSize = 24.sp),
+        keyboardOptions = KeyboardOptions(
+            imeAction= ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions{
+            localFocus.clearFocus()
+        }
+    )
 
 }
+@Composable
+fun ButtonComponent(
+    goToDetailsScreen:()->Unit
+)
+{
+    val userInputViewModel: UserInputViewModel = viewModel()
 
+    Button(modifier = Modifier.fillMaxWidth(),
+        onClick = {goToDetailsScreen()
+
+        }
+
+    ) {
+        Text(text="go to details" )
+
+    }
+}
 
 
 
