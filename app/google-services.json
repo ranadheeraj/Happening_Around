@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "187623377238",
+    "project_id": "happeningaround-602f5",
+    "storage_bucket": "happeningaround-602f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187623377238:android:26b9de656b603c7433eef7",
+        "android_client_info": {
+          "package_name": "com.example.happenings_around"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNWHBvvDJvrQN0oQC9TbtpcH6c8NGmcNc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
