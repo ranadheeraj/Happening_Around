@@ -1,7 +1,8 @@
-@file:JvmName("SecondActivityKt")
+
 
 package com.example.happenings_around
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -21,7 +22,10 @@ class SecondActivity : ComponentActivity()
         super.onCreate(savedInstanceState)
         setContent {
 
+
                       Happenings_Around()
+
+           // val value2 =intent.getStringExtra()
         }
     }
 }

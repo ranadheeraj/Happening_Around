@@ -62,13 +62,11 @@ class EmailPasswordActivity : ComponentActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-
-            reload(this)
+             getCurrentUser(this)
+           // reload(this)
         } else {
             setContent {
-
                 Credentials1()
-
             }
         }
     }
@@ -121,7 +119,7 @@ class EmailPasswordActivity : ComponentActivity() {
     }
     // [END sign_in_with_email]
  @OptIn(ExperimentalMaterial3Api::class)
-  private fun getCurrentUser() {
+  private fun getCurrentUser(context: Context) {
 
         val user = Firebase.auth.currentUser
         user?.let {
@@ -132,11 +130,15 @@ class EmailPasswordActivity : ComponentActivity() {
 
             // Check if user's email is verified
             val emailVerified = it.isEmailVerified
-          // displayCurrent(name,email,emailVerified)
-            // The user's ID, unique to the Firebase project. Do NOT use this value to
-            // authenticate with your backend server, if you have one. Use
-            // FirebaseUser.getIdToken() instead.
+
             val uid = it.uid
+            val intent = Intent(context, SecondActivity::class.java)
+
+            // Optionally, you can pass data to the second activity using intent extras
+            intent.putExtra(name,email )
+
+            // Start the SecondActivity
+            context.startActivity(intent)
 
         }
     }
@@ -153,6 +155,7 @@ class EmailPasswordActivity : ComponentActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
+
     }
 
 
@@ -278,9 +281,9 @@ class EmailPasswordActivity : ComponentActivity() {
         )
     }
     //@Composable
-    //fun displayCurrent(name:String?,email:String?,veri:Boolean){
+  //  fun displayCurrent(name:String?,email:String?,veri:Boolean){
 
-      //  Column(modifier = Modifier
+    //   Column(modifier = Modifier
  //           .fillMaxWidth()
    //         .padding(10.dp)){
      //       if (name  != null&& email !=null ) {

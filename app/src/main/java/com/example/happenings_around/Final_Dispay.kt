@@ -1,7 +1,7 @@
 package com.example.happenings_around
 
-//import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-//import com.bumptech.glide.integration.compose.GlideImage
+
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,27 +22,72 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.example.happenings_around.ui.theme.NewsItem
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
+
 @Composable
 fun NewsItemCard(newsItem: NewsItem) {
     //val painter = rememberImagePainter(data = newsItem.image)
-
+     val requestOptions = RequestOptions()
+        .timeout(5000)
+        .diskCacheStrategy(DiskCacheStrategy.DATA)
+        .placeholder(R.drawable.ic_launcher_background)
+        .error(R.drawable.ic_launcher_background)
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { newsItem.url }
-            .padding(16.dp),
+            .padding(16.dp)
+            .drawWithCache {
+                val brush = Brush.linearGradient(
+                    listOf(
+                        Color(0xFF9E82F0),
+                        Color(0xFF42A5F5)
+                    )
+                )
+                onDrawBehind {
+                    drawRoundRect(
+                        brush,
+                        cornerRadius = CornerRadius(10.dp.toPx())
+                    )
+                }
+            },
+
+
             elevation = CardDefaults.cardElevation(10.dp)
     ) {
         Column {
+//
+  //          Image(
+    ///            painter =rememberImagePainter(
+       //         data = newsItem.image,
+         //           builder={
+           //            // apply(requestOptions)
+             //       }
+   //             ),
+     //           contentDescription = null,
+          //      modifier = Modifier
+            //        .fillMaxWidth()
+              //      .height(200.dp)
+                //    .clip(shape = MaterialTheme.shapes.medium),
+              //  contentScale = ContentScale.Crop,
 
+            //)
 
             Spacer(modifier = Modifier.height(8.dp))
 
