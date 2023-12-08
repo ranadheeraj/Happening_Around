@@ -1,3 +1,5 @@
+import android.Manifest.permission.ACCESS_COARSE_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.happenings_around.R
 import com.example.happenings_around.UserInputViewModel
 import com.example.happenings_around.ui.theme.NewsItem
 import com.example.happenings_around.ui.theme.NewsResponse
@@ -45,7 +48,17 @@ class NewsViewModel : ViewModel() {
     }
 
     private fun makeNetworkRequest(username: String?, categorySelected: Int?): NewsResponse {
-
+        val category = when (categorySelected) {
+            1->"war"
+          2->"fashion"
+            3->"politics"
+            4->"sports"
+          5->"business"
+        6->"entertainmets"
+           7->"health"
+            8->"education"
+            else -> "general"
+        }
 
         val client = OkHttpClient()
 
@@ -53,12 +66,12 @@ class NewsViewModel : ViewModel() {
         val body = """
             {
                 "query":" $username",
-                "page": ${categorySelected},
-                "time_bounded": true,
-                "from_date": "01/02/2021",
-                "to_date": "05/06/2021",
+                "page": 1,
+                "time_bounded":true,
+                "from_date":"01/02/2023",
+                "to_date": "10/10/2023",
                 "location": "",
-                "category": "",
+                "category": "$category",
                 "source": ""
             }
         """.trimIndent()

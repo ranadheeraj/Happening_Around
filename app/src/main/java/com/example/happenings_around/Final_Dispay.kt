@@ -1,16 +1,26 @@
+@file:OptIn(ExperimentalGlideComposeApi::class)
+
 package com.example.happenings_around
 
 
+import android.R
+import android.widget.ImageView
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Info
@@ -27,27 +37,31 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
+import com.bumptech.glide.integration.compose.placeholder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.happenings_around.ui.theme.NewsItem
+import com.squareup.picasso.Picasso
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
+
+
 @Composable
 fun NewsItemCard(newsItem: NewsItem) {
-    //val painter = rememberImagePainter(data = newsItem.image)
-     val requestOptions = RequestOptions()
-        .timeout(5000)
-        .diskCacheStrategy(DiskCacheStrategy.DATA)
-        .placeholder(R.drawable.ic_launcher_background)
-        .error(R.drawable.ic_launcher_background)
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -72,23 +86,21 @@ fun NewsItemCard(newsItem: NewsItem) {
             elevation = CardDefaults.cardElevation(10.dp)
     ) {
         Column {
-//
-  //          Image(
-    ///            painter =rememberImagePainter(
-       //         data = newsItem.image,
-         //           builder={
-           //            // apply(requestOptions)
-             //       }
-   //             ),
-     //           contentDescription = null,
-          //      modifier = Modifier
-            //        .fillMaxWidth()
-              //      .height(200.dp)
-                //    .clip(shape = MaterialTheme.shapes.medium),
-              //  contentScale = ContentScale.Crop,
 
-            //)
+            GlideImage(
 
+                model = newsItem.image,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .clip(shape = MaterialTheme.shapes.medium),
+                contentScale = ContentScale.Crop,
+                //transition = DrawableTransitionOptions.withCrossFade(20L),
+                loading =
+                    placeholder( ColorPainter(Color.Transparent))
+
+            )
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
@@ -131,7 +143,7 @@ fun NewsItemCard(newsItem: NewsItem) {
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text(
-                    text = formatDate(newsItem.date),
+                    text = newsItem.date,
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 12.sp
@@ -161,8 +173,10 @@ fun NewsItemCard(newsItem: NewsItem) {
 
 @Composable
 private fun formatDate(dateString: String): String {
+
     val inputFormat = SimpleDateFormat("MMM dd, yyyy", Locale.US)
     val outputFormat = SimpleDateFormat("MMMM dd, yyyy", Locale.US)
+   // if(inputFormat.parse(dateString) )
     val date = inputFormat.parse(dateString)
     return outputFormat.format(date ?: Date())
 }

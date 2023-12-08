@@ -81,7 +81,8 @@ class EmailPasswordActivity : ComponentActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
-                    updateUI(user)
+                    updateUI(user,this)
+                    sendEmailVerification()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -90,7 +91,7 @@ class EmailPasswordActivity : ComponentActivity() {
                         "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
-                    updateUI(null)
+                    updateUI(null,this)
                 }
             }
     }
@@ -104,7 +105,7 @@ class EmailPasswordActivity : ComponentActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
-                    updateUI(user)
+                    updateUI(user,this)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -113,7 +114,7 @@ class EmailPasswordActivity : ComponentActivity() {
                         "Authentication failed.",
                         Toast.LENGTH_SHORT,
                     ).show()
-                    updateUI(null)
+                    updateUI(null,this)
                 }
             }
     }
@@ -154,13 +155,20 @@ class EmailPasswordActivity : ComponentActivity() {
         // [END send_email_verification]
     }
 
-    private fun updateUI(user: FirebaseUser?) {
+    private fun updateUI(user: FirebaseUser?,context: Context) {
+        if(user!=null){
+        val intent  =Intent(context,SecondActivity::class.java)
+        context.startActivity(intent)}
+        else{
+            reload(this)
+        }
+        //intent.putExtra(user)
 
     }
 
 
      private fun reload(context: Context) {
-         val intent = Intent(context, SecondActivity::class.java)
+         val intent = Intent(context,MainActivity::class.java)
 
          // Optionally, you can pass data to the second activity using intent extras
         // intent.putExtra(name,email )

@@ -87,11 +87,13 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-moshi:2.9.0")
     implementation ("com.squareup.moshi:moshi:1.14.0")
     implementation ("com.squareup.moshi:moshi-kotlin:1.14.0")
-    implementation("com.google.accompanist:accompanist-flowlayout:0.24.5-alpha")
+   // implementation("com.google.accompanist:accompanist-picasa:0.16.0")
    //kapt ("com.squareup.moshi:moshi-kotlin-codegen:1.14.0")
-  //  implementation ("com.github.bumptech.glide:compose:1.0.0-beta01")
-    implementation("io.coil-kt:coil:2.5.0")
+    implementation ("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation("io.coil-kt:coil-compose:2.5.0")
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.squareup.picasso:picasso:2.5.2")
+
 
 }
