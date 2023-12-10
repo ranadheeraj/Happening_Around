@@ -2,7 +2,7 @@
     <string name="app_name">Happening\'s_Around</string>
     <string name="start">start</string>>
     <string name="press_to_fetch">Fetch the list!</string>
-    <string name="username_textfield">Uni User ID</string>
+    <string name="username_textfield">Enter the email Id</string>
     <string name="password_textfield">Password</string>
     <string name="next">next</string>
     <string name="show_password">Show Password</string>

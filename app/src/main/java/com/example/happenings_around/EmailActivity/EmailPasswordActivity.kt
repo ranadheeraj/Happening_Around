@@ -1,4 +1,4 @@
-package com.example.happenings_around
+package com.example.happenings_around.EmailActivity
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,12 +17,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,13 +33,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.happenings_around.MainActivity
+import com.example.happenings_around.R
+import com.example.happenings_around.SecondActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -44,9 +58,9 @@ import com.google.firebase.auth.auth
 
 class EmailPasswordActivity : ComponentActivity() {
 
-    // [START declare_auth]
+    // START declare_auth
     private lateinit var auth: FirebaseAuth
-    // [END declare_auth]
+    // END declare_auth
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +76,7 @@ class EmailPasswordActivity : ComponentActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if (currentUser != null) {
-             getCurrentUser(this)
+             getCurrentUser()
            // reload(this)
         } else {
             setContent {
@@ -81,14 +95,14 @@ class EmailPasswordActivity : ComponentActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
-                    updateUI(user,this)
                     sendEmailVerification()
+                    updateUI(user,this)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
-                        "Authentication failed.",
+                        "Authentication failed.there is already an account with this mail",
                         Toast.LENGTH_SHORT,
                     ).show()
                     updateUI(null,this)
@@ -111,7 +125,7 @@ class EmailPasswordActivity : ComponentActivity() {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         baseContext,
-                        "Authentication failed.",
+                        "Authentication failed. check the password",
                         Toast.LENGTH_SHORT,
                     ).show()
                     updateUI(null,this)
@@ -120,12 +134,12 @@ class EmailPasswordActivity : ComponentActivity() {
     }
     // [END sign_in_with_email]
  @OptIn(ExperimentalMaterial3Api::class)
-  private fun getCurrentUser(context: Context) {
+  private fun getCurrentUser() {
 
         val user = Firebase.auth.currentUser
         user?.let {
             // Name, email address, and profile photo Url
-            val name = it.displayName
+           val name = it.displayName
             val email = it.email
             //  val photoUrl = it.photoUrl
 
@@ -133,13 +147,7 @@ class EmailPasswordActivity : ComponentActivity() {
             val emailVerified = it.isEmailVerified
 
             val uid = it.uid
-            val intent = Intent(context, SecondActivity::class.java)
-
-            // Optionally, you can pass data to the second activity using intent extras
-            intent.putExtra(name,email )
-
-            // Start the SecondActivity
-            context.startActivity(intent)
+            setContent { DisplayProfile(name,email,emailVerified,uid,this) }
 
         }
     }
@@ -156,9 +164,11 @@ class EmailPasswordActivity : ComponentActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?,context: Context) {
-        if(user!=null){
-        val intent  =Intent(context,SecondActivity::class.java)
-        context.startActivity(intent)}
+        if(user!=null) {
+            val intent = Intent(context, SecondActivity::class.java)
+            context.startActivity(intent)
+            //intent.putExtra("name",user)}
+        }
         else{
             reload(this)
         }
@@ -168,7 +178,7 @@ class EmailPasswordActivity : ComponentActivity() {
 
 
      private fun reload(context: Context) {
-         val intent = Intent(context,MainActivity::class.java)
+         val intent = Intent(context, MainActivity::class.java)
 
          // Optionally, you can pass data to the second activity using intent extras
         // intent.putExtra(name,email )
@@ -190,65 +200,97 @@ class EmailPasswordActivity : ComponentActivity() {
         val mContext = LocalContext.current
 
         val userCredentialViewModel: UserCredentialsViewModel = viewModel()
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-        ) {
-            OutlinedTextField(
-                value = userCredentialViewModel.username,
-                onValueChange = { it.also { userCredentialViewModel.username = it } },
-                label = { Text(text = LocalContext.current.getString(R.string.username_textfield)) }
-            )
-
-            PasswordField(
-                userCredentialViewModel.password,
-                {
-                    userCredentialViewModel.password = it
+                .drawWithCache {
+                    val brush = Brush.linearGradient(
+                        listOf(
+                            Color(0xFFCCC7DA),
+                            Color(0xFF83B1D6)
+                        )
+                    )
+                    onDrawBehind {
+                        drawRoundRect(
+                            brush,
+                            cornerRadius = CornerRadius(10.dp.toPx())
+                        )
+                    }
                 }
-            )
-
-            Log.d(TAG, "onEvent:nameEntered->>")
-            Log.d(TAG, "${userCredentialViewModel.password}")
-            Log.d(TAG, "${userCredentialViewModel.username}")
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = {
-                createAccount(
-                    userCredentialViewModel.username,
-                    userCredentialViewModel.password
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+                    .drawWithCache {
+                        val brush = Brush.linearGradient(
+                            listOf(
+                                Color(0xFFCCC7DA),
+                                Color(0xFF83B1D6)
+                            )
+                        )
+                        onDrawBehind {
+                            drawRoundRect(
+                                brush,
+                                cornerRadius = CornerRadius(10.dp.toPx())
+                            )
+                        }
+                    }
+            ) {
+                OutlinedTextField(
+                    value = userCredentialViewModel.username,
+                    onValueChange = { it.also { userCredentialViewModel.username = it } },
+                    label = { Text(text = LocalContext.current.getString(R.string.username_textfield)) }
                 )
-            }) {
-                Text(stringResource(R.string.Create))
-            }
 
-
-
-
-            Spacer(modifier=Modifier.width(20.dp))
-
-
-
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = {
-                signIn(
-                    userCredentialViewModel.username,
-                    userCredentialViewModel.password
+                PasswordField(
+                    userCredentialViewModel.password,
+                    {
+                        userCredentialViewModel.password = it
+                    }
                 )
-            }) {
-                Text(stringResource(R.string.sign_in))
-            }
+
+                Log.d(TAG, "onEvent:nameEntered->>")
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = {
+                    createAccount(
+                        userCredentialViewModel.username,
+                        userCredentialViewModel.password
+                    )
+                }) {
+                    Text(stringResource(R.string.Create))
+                }
 
 
-            Spacer(modifier = Modifier.height(8.dp))
-            Button(onClick = {
-                mContext.startActivity(Intent(mContext, SecondActivity::class.java))
-            }) {
-                Text(stringResource(R.string.Skip))
 
+
+                Spacer(modifier = Modifier.width(20.dp))
+
+
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = {
+                    signIn(
+                        userCredentialViewModel.username,
+                        userCredentialViewModel.password
+                    )
+                }) {
+                    Text(stringResource(R.string.sign_in))
+                }
+
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Button(onClick = {
+                    mContext.startActivity(Intent(mContext, SecondActivity::class.java))
+                }) {
+                    Text(stringResource(R.string.Skip))
+
+                }
             }
         }
     }
-
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun PasswordField(
@@ -270,9 +312,9 @@ class EmailPasswordActivity : ComponentActivity() {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             trailingIcon = {
                 val image = if (passwordVisible)
-                    Icons.Filled.Face
+                    Icons.Filled.Warning
                 else
-                    Icons.Filled.AddCircle
+                    Icons.Filled.Face
 
                 // Localized description for accessibility services
                 val description = if (passwordVisible)
@@ -288,26 +330,56 @@ class EmailPasswordActivity : ComponentActivity() {
             modifier = modifier
         )
     }
-    //@Composable
-  //  fun displayCurrent(name:String?,email:String?,veri:Boolean){
+ @Composable
+    fun DisplayProfile(name:String?,email:String?,emailVerified:Boolean,uid:String?,context:Context){
 
-    //   Column(modifier = Modifier
- //           .fillMaxWidth()
-   //         .padding(10.dp)){
-     //       if (name  != null&& email !=null ) {
-       //         Text(text=name)
-         //       Spacer(modifier=Modifier.width(20.dp))
-//
-//                Text(text=email)
+     Card(
+         modifier = Modifier
+             .fillMaxWidth()
+             .padding(16.dp)
+             .clip(MaterialTheme.shapes.medium)
+             .background(MaterialTheme.colorScheme.surface)
+     ){Column (  modifier = Modifier
+         .fillMaxWidth()
+         .padding(10.dp)
+         .drawWithCache {
+             val brush = Brush.linearGradient(
+                 listOf(
+                     Color(0xFFCCC7DA),
+                     Color(0xFF83B1D6)
+                 )
+             )
+             onDrawBehind {
+                 drawRoundRect(
+                     brush,
+                     cornerRadius = CornerRadius(10.dp.toPx())
+                 )
+             }
+         }){
+         Text("User Details:", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+         Spacer(modifier = Modifier.height(8.dp))
+         Text("Name: $name", fontSize = 20.sp)
+         Spacer(modifier = Modifier.height(8.dp))
+         Text("Email: $email", fontSize = 20.sp)
+         Spacer(modifier = Modifier.height(8.dp))
+         Text("Email Verified: $emailVerified", fontSize = 20.sp)
+         Spacer(modifier = Modifier.height(8.dp))
+         Text("UID: $uid", fontSize = 20.sp)
+     }}
+         Button(onClick = {
+             val intent = Intent(context, SecondActivity::class.java)
+             context.startActivity(intent)
+         }) {
+             Text(stringResource(R.string.start))
+
+         }
 
 
-            }
-   //.// /**        Spacer(modifier=Modifier.width(20.dp))
-  //          Text(text="email ${veri}ly verified")
- //       }
- //   }
+     }
 
-//}**/
+
+ }
+
 
 
 
