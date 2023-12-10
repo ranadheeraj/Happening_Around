@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
-        <activity android:name=".EmailPasswordActivity" />
+        <activity android:name=".EmailActivity.EmailPasswordActivity" />
     </application>
 
 </manifest>

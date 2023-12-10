@@ -1,26 +1,10 @@
-import android.Manifest.permission.ACCESS_COARSE_LOCATION
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+package com.example.happenings_around.NewsReceiver
+
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.happenings_around.R
-import com.example.happenings_around.UserInputViewModel
-import com.example.happenings_around.ui.theme.NewsItem
-import com.example.happenings_around.ui.theme.NewsResponse
-import com.example.happenings_around.ui.theme.UserDatauiEvent
-import com.example.happenings_around.ui.theme.UserInputScreenState
+import com.example.happenings_around.dataCollection.NewsItem
+import com.example.happenings_around.dataCollection.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,7 +16,7 @@ import org.json.JSONObject
 
 class NewsViewModel : ViewModel() {
     val response = mutableStateOf<NewsResponse?>(null)
-    private var uiState = mutableStateOf(UserInputScreenState())
+   // private var uiState = mutableStateOf(UserInputScreenState())
 
     fun fetchData(username: String?, categorySelected: Int?) {
         viewModelScope.launch {
@@ -50,12 +34,12 @@ class NewsViewModel : ViewModel() {
     private fun makeNetworkRequest(username: String?, categorySelected: Int?): NewsResponse {
         val category = when (categorySelected) {
             1->"war"
-          2->"fashion"
+            2->"fashion"
             3->"politics"
             4->"sports"
-          5->"business"
-        6->"entertainmets"
-           7->"health"
+            5->"business"
+            6->"entertainmets"
+            7->"health"
             8->"education"
             else -> "general"
         }

@@ -1,9 +1,8 @@
-package com.example.happenings_around
+package com.example.happenings_around.selection
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.happenings_around.ui.theme.UserDatauiEvent
-import com.example.happenings_around.ui.theme.UserInputScreenState
+import com.example.happenings_around.dataCollection.UserInputScreenState
 import android.util.Log
 
 class UserInputViewModel: ViewModel() {

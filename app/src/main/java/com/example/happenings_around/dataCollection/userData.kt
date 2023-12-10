@@ -1,4 +1,4 @@
-package com.example.happenings_around.ui.theme
+package com.example.happenings_around.dataCollection
 
 data class UserInputScreenState(
     var nameEntered:String ="General",

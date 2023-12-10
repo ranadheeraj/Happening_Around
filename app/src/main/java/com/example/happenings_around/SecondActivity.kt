@@ -2,7 +2,6 @@
 
 package com.example.happenings_around
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,7 +12,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.happenings_around.ui.theme.Routes
+import com.example.happenings_around.NewsReceiver.NewsApp
+import com.example.happenings_around.selection.UserInputScreen
+import com.example.happenings_around.dataCollection.Routes
+import com.example.happenings_around.selection.UserInputViewModel
 
 
 class SecondActivity : ComponentActivity()
@@ -25,7 +27,7 @@ class SecondActivity : ComponentActivity()
 
                       Happenings_Around()
 
-           // val value2 =intent.getStringExtra()
+
         }
     }
 }
@@ -34,7 +36,8 @@ class SecondActivity : ComponentActivity()
 //@Preview(name ="Light Mode")
 
 @Composable
-fun Happenings_Around(userInputViewModel:UserInputViewModel=viewModel()){
+fun Happenings_Around(userInputViewModel: UserInputViewModel =viewModel()){
+
 val navController = rememberNavController()
     NavHost(navController= navController,startDestination= Routes.USER_INPUT_SCREEN
     ) {
@@ -50,8 +53,8 @@ val navController = rememberNavController()
         }
         composable("${Routes.FINAL_DISPLAY}/{${Routes.NAME}}/{${Routes.CATEGORY_SELECTED}}",
             arguments = listOf(
-                navArgument(name=Routes.NAME){type = NavType.StringType},
-                navArgument(name=Routes.CATEGORY_SELECTED){type=NavType.IntType}
+                navArgument(name= Routes.NAME){type = NavType.StringType},
+                navArgument(name= Routes.CATEGORY_SELECTED){type=NavType.IntType}
             )
             ){
             val name=it?.arguments?.getString(Routes.NAME)
