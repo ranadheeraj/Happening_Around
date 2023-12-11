@@ -1,4 +1,4 @@
-package com.example.happenings_around.EmailActivity
+package com.example.happenings_around
 
 import android.content.Context
 import android.content.Intent
@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.happenings_around.EmailActivity.UserCredentialsViewModel
 import com.example.happenings_around.MainActivity
 import com.example.happenings_around.R
 import com.example.happenings_around.SecondActivity
