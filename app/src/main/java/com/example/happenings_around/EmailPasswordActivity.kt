@@ -340,33 +340,34 @@ class EmailPasswordActivity : ComponentActivity() {
              .padding(16.dp)
              .clip(MaterialTheme.shapes.medium)
              .background(MaterialTheme.colorScheme.surface)
-     ){Column (  modifier = Modifier
-         .fillMaxWidth()
-         .padding(10.dp)
-         .drawWithCache {
-             val brush = Brush.linearGradient(
-                 listOf(
-                     Color(0xFFCCC7DA),
-                     Color(0xFF83B1D6)
+     ) {
+         Column(modifier = Modifier
+             .fillMaxWidth()
+             .padding(10.dp)
+             .drawWithCache {
+                 val brush = Brush.linearGradient(
+                     listOf(
+                         Color(0xFFCCC7DA),
+                         Color(0xFF83B1D6)
+                     )
                  )
-             )
-             onDrawBehind {
-                 drawRoundRect(
-                     brush,
-                     cornerRadius = CornerRadius(10.dp.toPx())
-                 )
-             }
-         }){
-         Text("User Details:", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-         Spacer(modifier = Modifier.height(8.dp))
-         Text("Name: $name", fontSize = 20.sp)
-         Spacer(modifier = Modifier.height(8.dp))
-         Text("Email: $email", fontSize = 20.sp)
-         Spacer(modifier = Modifier.height(8.dp))
-         Text("Email Verified: $emailVerified", fontSize = 20.sp)
-         Spacer(modifier = Modifier.height(8.dp))
-         Text("UID: $uid", fontSize = 20.sp)
-     }}
+                 onDrawBehind {
+                     drawRoundRect(
+                         brush,
+                         cornerRadius = CornerRadius(10.dp.toPx())
+                     )
+                 }
+             }) {
+             Text("User Details:", fontSize = 24.sp, fontWeight = FontWeight.Bold)
+             Spacer(modifier = Modifier.height(8.dp))
+             Text("Name: $name", fontSize = 20.sp)
+             Spacer(modifier = Modifier.height(8.dp))
+             Text("Email: $email", fontSize = 20.sp)
+             Spacer(modifier = Modifier.height(8.dp))
+             Text("Email Verified: $emailVerified", fontSize = 20.sp)
+             Spacer(modifier = Modifier.height(8.dp))
+             Text("UID: $uid", fontSize = 20.sp)
+         }
          Button(onClick = {
              val intent = Intent(context, SecondActivity::class.java)
              context.startActivity(intent)
@@ -374,6 +375,7 @@ class EmailPasswordActivity : ComponentActivity() {
              Text(stringResource(R.string.start))
 
          }
+     }
 
 
      }
