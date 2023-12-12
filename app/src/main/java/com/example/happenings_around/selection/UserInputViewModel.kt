@@ -21,6 +21,7 @@ class UserInputViewModel: ViewModel() {
                 Log.d(TAG,"onEvent:nameEntered->>")
                 Log.d(TAG,"${uiState.value}")
         }
+
         is UserDatauiEvent.CategorySelected->{
             uiState.value =uiState.value.copy(
                 categorySelected =event.categoryValue)
