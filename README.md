@@ -1,8 +1,8 @@
  ## Happening Around App🗞️ ![image](https://github.com/ranadheeraj/Happening_Around/assets/93979078/3ac491f2-1d89-476a-8c70-7c65fa40ccdb)
 
- This is news app that provides users with the news article on any given topic and particular query in the last 5 months.The app retrieves data from NEWSNOW (one Call API) and allows users to search of articles of a particular person thing.
+ #### This is news app that provides users with the news article on any given topic and particular query in the last 5 months.The app retrieves data from NEWSNOW (one Call API) Application Programming Interface and allows users to search of articles on a particular topic with a query
  ## Important Note on App's Stability
- This app is just a basic version of news can have many changes and bugs in the future.
+ #### This app is just a basic version of news can have many changes and bugs in the future.
  ## Technologies Used
  #### ->Jetpack Compose: A modern UI toolkit for building native Android Apps 
  #### -> Jetpack Navigation: A library for building navigation on android
