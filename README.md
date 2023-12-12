@@ -16,5 +16,5 @@
  ##  Bugs
  #### if there are any bugs you can clone the repository and fix the bugs
 
-
+#### please use a physical device for checking in case the emulator not works as mentioned
  
