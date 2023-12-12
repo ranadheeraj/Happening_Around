@@ -14,7 +14,7 @@
  ## Features
  ![Screen shot 12345](https://github.com/ranadheeraj/Happening_Around/assets/93979078/ad6ed823-9895-4ede-b955-bef2df9af28d)
  ##  Bugs
- #### if there are any bugs you can clone the repository and fix the bugs
+ #### As the App is just the basic version it can have bugs
 
 
  
